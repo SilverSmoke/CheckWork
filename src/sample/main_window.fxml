@@ -18,12 +18,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="root" dividerPositions="0.4306930693069307" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="608.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<SplitPane fx:id="root" dividerPositions="0.4306930693069307" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="608.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <items>
       <TabPane>
          <tabs>
-            <Tab text="Ввод данных">
+            <Tab closable="false" text="Ввод данных">
                <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="774.0">
                         <children>
@@ -140,11 +141,17 @@
                         <Button fx:id="transactionOK" layoutX="160.0" layoutY="17.0" mnemonicParsing="false" onAction="#setTransaction" text="OK" textAlignment="CENTER" />
                         <Button fx:id="save" layoutX="686.0" layoutY="181.0" mnemonicParsing="false" onAction="#savePosition" onKeyReleased="#savePosition" text="Сохранить" />
                         <Button fx:id="clear" layoutX="579.0" layoutY="181.0" mnemonicParsing="false" onAction="#clearPosition" text="Очистить" />
+                        <Label layoutX="222.0" layoutY="21.0" text="Прибыль:" />
+                        <TextField layoutX="349.0" layoutY="17.0" prefHeight="25.0" prefWidth="83.0" />
+                        <Label layoutX="295.0" layoutY="21.0" text="Источник" />
+                        <TextField layoutX="510.0" layoutY="17.0" prefHeight="25.0" prefWidth="65.0" />
+                        <Label layoutX="470.0" layoutY="21.0" text="Размер" />
+                        <Button layoutX="621.0" layoutY="17.0" mnemonicParsing="false" text="Сохранить" />
                         </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Вывод данных">
+            <Tab closable="false" text="Вывод данных">
                <content>
                   <GridPane>
                     <columnConstraints>
@@ -183,25 +190,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <CheckBox fx:id="byDay" mnemonicParsing="false" text="По дням">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </CheckBox>
-                              <CheckBox fx:id="byMonths" mnemonicParsing="false" text="По месяцам">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </CheckBox>
-                              <CheckBox fx:id="brief" mnemonicParsing="false" text="Кратко">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </CheckBox>
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <Label prefHeight="17.0" prefWidth="88.0" text="Группировать:">
@@ -209,21 +198,47 @@
                                     <Insets right="50.0" />
                                  </HBox.margin>
                               </Label>
-                              <RadioButton fx:id="byMarket" onMouseReleased="#actionRadio" mnemonicParsing="false" text="Магазин">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </RadioButton>
-                              <RadioButton fx:id="bySection" onMouseClicked="#actionRadio" mnemonicParsing="false" text="Отдел">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </RadioButton>
-                              <RadioButton fx:id="byProduct" onMouseClicked="#actionRadio" mnemonicParsing="false" text="Продукт">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </RadioButton>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <RadioButton fx:id="byDay" onMouseClicked="#changeForTime" mnemonicParsing="false" text="По дням">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </RadioButton>
+                                    <RadioButton fx:id="byMonths" onMouseClicked="#changeForTime" mnemonicParsing="false" text="По месяцам">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </RadioButton>
+                                    <CheckBox fx:id="brief" onMouseClicked="#briefAction" mnemonicParsing="false" text="Кратко">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                 </children>
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <RadioButton fx:id="byMarket" mnemonicParsing="false" onMouseClicked="#byProperties" text="Магазин">
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </RadioButton>
+                                    <RadioButton fx:id="bySection" mnemonicParsing="false" onMouseClicked="#byProperties" text="Отдел">
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </RadioButton>
+                                    <RadioButton fx:id="byProduct" mnemonicParsing="false" onMouseClicked="#byProperties" text="Продукт">
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>

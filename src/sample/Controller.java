@@ -17,8 +17,8 @@ import java.util.Iterator;
 
 public class Controller {
 
-    public CheckBox byDay;
-    public CheckBox byMonths;
+    public RadioButton byDay;
+    public RadioButton byMonths;
     public CheckBox brief;
     public RadioButton byMarket;
     public RadioButton bySection;
@@ -118,11 +118,11 @@ public class Controller {
 
 
     private void handlerProduct(KeyEvent event){
-        System.out.println(event.getEventType());
+        /*System.out.println(event.getEventType());
         System.out.println(event.getCode().getName());
         System.out.println(event.getCharacter());
 
-        System.out.println("===========================================");
+        System.out.println("===========================================");*/
 
 
 
@@ -165,7 +165,7 @@ public class Controller {
 
             for (String s : hashSet) {
 
-                System.out.println(s);
+                //System.out.println(s);
 
                 if ((s.toLowerCase().indexOf(field.getText().toLowerCase()) >= 0)&&(field.getText().length() > 1)) {
 
@@ -319,11 +319,11 @@ public class Controller {
             e.printStackTrace();
         }
 
-        Iterator iter = setName.iterator();
+        /*Iterator iter = setName.iterator();
 
         while(iter.hasNext()){
             System.out.println(iter.next());
-        }
+        }*/
 
         return setName;
     }
@@ -395,11 +395,42 @@ public class Controller {
                     intervalEnd.setValue(LocalDate.now());
             }
 
-    @FXML
-    public void actionRadio(MouseEvent event) {
+    public void changeForTime(MouseEvent mouseEvent) {
 
-        System.out.println(event.getButton());
-        //String sourceId = event;
+        if(mouseEvent.getSource().equals(byDay)){
+            byMonths.setSelected(false);
+        }else{
+            byDay.setSelected(false);
+        }
+    }
 
+    public void byProperties(MouseEvent mouseEvent) {
+
+        if(mouseEvent.getSource().equals(byMarket)){
+            byProduct.setSelected(false);
+            bySection.setSelected(false);
+        }else if(mouseEvent.getSource().equals(byProduct)){
+            byMarket.setSelected(false);
+            bySection.setSelected(false);
+        }else{
+            byMarket.setSelected(false);
+            byProduct.setSelected(false);
+        }
+    }
+
+    public void briefAction(MouseEvent mouseEvent) {
+        if(brief.isSelected()){
+            byMarket.setSelected(false);
+            byMarket.setDisable(true);
+            bySection.setSelected(false);
+            bySection.setDisable(true);
+            byProduct.setSelected(false);
+            byProduct.setDisable(true);
+
+        }else{
+            byMarket.setDisable(false);
+            bySection.setDisable(false);
+            byProduct.setDisable(false);
+        }
     }
 }
